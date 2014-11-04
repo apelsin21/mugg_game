@@ -17,8 +17,6 @@ namespace mugg {
         //Minimum level to print and write to disk
         static LogLevel MinLvl = LogLevel::Info;
 
-        static std::ofstream LogStream(Path, std::ios::out | std::ios::trunc);
-
         static void Log(LogLevel lvl, const std::string& msg) {
             if(lvl < MinLvl) {
                 std::cout << "bajs\n";
@@ -48,12 +46,6 @@ namespace mugg {
             finalString += "\n";
     
             std::cerr << finalString;
-            
-            if(LogStream.is_open()) {
-                LogStream << finalString;
-            } else {
-                std::cerr << "Logger error: Couldn't open log file " << Path << " for writing!\n";
-            }
         }
     }
 }

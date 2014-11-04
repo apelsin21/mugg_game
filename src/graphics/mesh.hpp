@@ -13,6 +13,12 @@
 #include "graphics/texture2d.hpp"
 #include "graphics/color.hpp"
 
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
+
+#include "core/logger.hpp"
+
 namespace mugg {
     namespace core {
         class ContentManager;
@@ -55,6 +61,8 @@ namespace mugg {
                 void SetUVS(const std::vector<glm::vec2>&);
                 std::vector<glm::vec2> GetUVS();
                 int GetUVCount();
+                
+                bool Load(const std::string&);
                 
                 void SetNormals(const std::vector<glm::vec3>&);
                 std::vector<glm::vec3> GetNormals();

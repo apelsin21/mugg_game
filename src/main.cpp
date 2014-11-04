@@ -32,18 +32,14 @@ int main(void) {
     
     SceneManager* sceneManager = engine.CreateSceneManager();
 
-    Mesh* testMesh = contentManager->CreateMesh("data/models/bunny/bunny.dae");
-
-    if(!testMesh) {
+    Mesh* testMesh;
+    
+    if(!testMesh->Load("data/models/complexshape.nff")) {
         Log(LogLevel::Error, "Failed to load mesh " + testMesh->GetFilepath());
     } else {
         Log(LogLevel::Info, "Successfully loaded mesh " + testMesh->GetFilepath()
                 + " which has " + std::to_string(testMesh->GetVertexCount()) +
                 " vertices and " + std::to_string(testMesh->GetNormalCount()) + " normals.");
-
-        //if(testMesh->GetTexture() != nullptr) {
-        //    Log(LogLevel::Info, "It also has a diffuse texture, " + testMesh->GetTexture()->GetFilepath());
-        //}
     }
 
     SceneNode* node = sceneManager->CreateSceneNode();

@@ -3,6 +3,14 @@
 mugg::core::Engine::Engine(bool createContext) {
     Log(LogLevel::Info, "Creating engine instance");
 
+    this->guiManager = nullptr;
+    this->keyboard = nullptr;
+    this->mouse = nullptr;
+    this->window = nullptr;
+    this->contentManager = nullptr;
+    this->guiManager = nullptr;
+    this->sceneManager = nullptr;
+
     if(createContext) {
         sf::ContextSettings settings(this->depthBits,
                             this->stencilBits,
