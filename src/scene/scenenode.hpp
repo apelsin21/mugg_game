@@ -28,20 +28,20 @@ namespace mugg {
                 SceneNode(mugg::scene::SceneManager*);
                 ~SceneNode();
 
-                virtual void AddMesh(mugg::graphics::Mesh*&);
-                virtual bool GetMeshByIndex(int, mugg::graphics::Mesh*&);
-                virtual int GetNumberOfMeshes();
+                void AddMesh(mugg::graphics::Mesh*&);
+                bool GetMeshByIndex(int, mugg::graphics::Mesh*&);
+                int GetNumberOfMeshes();
                 
-                virtual glm::mat4 GetModelMatrix();
+                glm::mat4 GetModelMatrix();
 
-                virtual void SetPosition(const glm::vec4&);
-                virtual glm::vec4 GetPosition();
+                void SetPosition(const glm::vec4&);
+                glm::vec4 GetPosition();
 
-                virtual void SetRotation(const glm::vec3&);
-                virtual glm::vec3 GetRotation();
+                void SetRotation(const glm::vec3&);
+                glm::vec3 GetRotation();
 
-                virtual void SetScale(const glm::vec3&);
-                virtual glm::vec3 GetScale();
+                void SetScale(const glm::vec3&);
+                glm::vec3 GetScale();
         };
     }
 }

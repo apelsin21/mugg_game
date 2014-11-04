@@ -82,20 +82,20 @@ namespace mugg {
                 GUIManager(mugg::core::Engine*);
                 ~GUIManager();
 
-                virtual mugg::gui::Sprite* CreateSprite();
-                virtual void UpdateSprite(unsigned int);
-                virtual std::size_t GetNumberOfSprites();
-                virtual bool GetSpriteByIndex(int, mugg::gui::Sprite*&);
+                mugg::gui::Sprite* CreateSprite();
+                void UpdateSprite(unsigned int);
+                std::size_t GetNumberOfSprites();
+                bool GetSpriteByIndex(int, mugg::gui::Sprite*&);
 
-                virtual mugg::gui::SpriteBatch* CreateSpriteBatch();
+                mugg::gui::SpriteBatch* CreateSpriteBatch();
 
-                virtual mugg::graphics::ShaderProgram* GetShaderProgram();
-                virtual void SetShaderProgram(mugg::graphics::ShaderProgram*);
+                mugg::graphics::ShaderProgram* GetShaderProgram();
+                void SetShaderProgram(mugg::graphics::ShaderProgram*);
 
-                virtual glm::mat4 GetProjectionMatrix();
-                virtual void SetProjectionMatrix(const glm::mat4&);
+                glm::mat4 GetProjectionMatrix();
+                void SetProjectionMatrix(const glm::mat4&);
 
-                virtual void Render();
+                void Render();
         };
     }
 }

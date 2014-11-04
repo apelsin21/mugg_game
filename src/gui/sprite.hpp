@@ -32,9 +32,9 @@ namespace mugg {
                 std::vector<float> GetColors();
                 void SetColors(const std::vector<float>&);
 
-                virtual bool IsPositionChanged();
-                virtual bool IsUVChanged();
-                virtual bool IsColorChanged();
+                bool IsPositionChanged();
+                bool IsUVChanged();
+                bool IsColorChanged();
         };
     }
 }

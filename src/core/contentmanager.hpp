@@ -22,6 +22,8 @@
 #include "graphics/shaderprogram.hpp"
 #include "graphics/mesh.hpp"
 
+#include "core/logger.hpp"
+
 namespace mugg {
     namespace core {
         class Engine;

@@ -259,8 +259,8 @@ mugg::graphics::Mesh* mugg::core::ContentManager::CreateMesh(const std::string& 
             aiProcess_SortByPType);
 
     if(!scene) {
-        std::cout << "Failed to read Mesh from " << filepath << ", Assimp error string:\n";
-        std::cout << importer.GetErrorString() << std::endl;
+        Log(LogLevel::Error, "Failed to read mesh from " + filepath + ", error:");
+        Log(LogLevel::Error, importer.GetErrorString());
         this->meshes.push_back(mesh);
         return mesh;
     }

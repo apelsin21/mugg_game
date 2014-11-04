@@ -71,14 +71,14 @@ namespace mugg {
                 SceneManager(mugg::core::Engine*);
                 ~SceneManager();
 
-                virtual mugg::scene::SceneNode* CreateSceneNode();
-                virtual std::size_t GetNumberOfSceneNodes();
-                virtual bool GetSceneNodeByIndex(int, mugg::scene::SceneNode*&);
+                mugg::scene::SceneNode* CreateSceneNode();
+                std::size_t GetNumberOfSceneNodes();
+                bool GetSceneNodeByIndex(int, mugg::scene::SceneNode*&);
 
-                virtual void SetShaderProgram(mugg::graphics::ShaderProgram*);
-                virtual GLuint GetShaderProgramID();
+                void SetShaderProgram(mugg::graphics::ShaderProgram*);
+                GLuint GetShaderProgramID();
 
-                virtual void Render();
+                void Render();
         };
     }
 }
