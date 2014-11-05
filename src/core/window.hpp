@@ -19,7 +19,7 @@
 namespace mugg {
     namespace core {
         class Engine;
-    
+
         class Window {
             private:
                 glm::vec2 resolution;
@@ -27,7 +27,7 @@ namespace mugg {
                 bool open, focused;
 
                 sf::Window internalHandle;
-                
+
                 mugg::graphics::Color backgroundColor;
                 mugg::core::Engine* parent;
             public:
@@ -42,7 +42,7 @@ namespace mugg {
 
                 void SetTitle(const std::string&);
                 std::string GetTitle();
-               
+
                 void SetResolution(const glm::vec2&);
                 glm::vec2 GetResolution();
 

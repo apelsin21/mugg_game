@@ -6,9 +6,10 @@
 #include "gui/guimanager.hpp"
 #include "gui/sprite.hpp"
 
-#include <glm/glm.hpp>
-
 #include "core/logger.hpp"
+
+#define GLM_FORCE_RADIANS
+#include <glm/glm.hpp>
 
 using namespace mugg;
 using namespace core;
@@ -29,11 +30,11 @@ int main(void) {
 
     //Get a handle to a content manager, so we can load resources
     ContentManager* contentManager = engine.CreateContentManager();
-    
+
     SceneManager* sceneManager = engine.CreateSceneManager();
 
     Mesh* testMesh;
-    
+
     if(!testMesh->Load("data/models/complexshape.nff")) {
         Log(LogLevel::Error, "Failed to load mesh " + testMesh->GetFilepath());
     } else {

@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 2.8)
 project(mugg_game)
 
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/src)
+
 if(WIN32)
     #LIBRARY DIRECTORIES
 	set(FREETYPE_LIB 	${CMAKE_CURRENT_SOURCE_DIR}/deps/windows/freetype/lib/libfreetype.dll.a)
@@ -11,7 +13,6 @@ if(WIN32)
 						${CMAKE_CURRENT_SOURCE_DIR}/deps/windows/sfml/lib/libsfml-window-s.a
 						${CMAKE_CURRENT_SOURCE_DIR}/deps/windows/sfml/lib/libsfml-network-s.a
 						${CMAKE_CURRENT_SOURCE_DIR}/deps/windows/sfml/lib/libsfml-audio-s.a)
-
 	set(FREEIMAGE_LIB 	${CMAKE_CURRENT_SOURCE_DIR}/deps/windows/freeimage/lib/FreeImage.lib)
 
     #INCLUDE DIRECTORIES
@@ -20,24 +21,6 @@ if(WIN32)
 	set(FREETYPE_INCLUDE 	${CMAKE_CURRENT_SOURCE_DIR}/deps/windows/freetype/include)
 	set(FREEIMAGE_INCLUDE 	${CMAKE_CURRENT_SOURCE_DIR}/deps/windows/freeimage/include)
 	set(GLM_INCLUDE 		${CMAKE_CURRENT_SOURCE_DIR}/deps/windows/glm)
-	
-	file(GLOB GLB_SRC 
-	    ${CMAKE_CURRENT_SOURCE_DIR}/src/core/*.cpp
-	    ${CMAKE_CURRENT_SOURCE_DIR}/src/graphics/*.cpp
-	    ${CMAKE_CURRENT_SOURCE_DIR}/src/gui/*.cpp
-	    ${CMAKE_CURRENT_SOURCE_DIR}/src/net/*.cpp
-	    ${CMAKE_CURRENT_SOURCE_DIR}/src/scene/*.cpp
-	    ${CMAKE_CURRENT_SOURCE_DIR}/src/audio/*.cpp
-	)
-
-	file(GLOB GLB_HEADERS
-	    ${CMAKE_CURRENT_SOURCE_DIR}/src/core/*.hpp
-	    ${CMAKE_CURRENT_SOURCE_DIR}/src/graphics/*.hpp
-	    ${CMAKE_CURRENT_SOURCE_DIR}/src/gui/*.hpp
-	    ${CMAKE_CURRENT_SOURCE_DIR}/src/net/*.hpp
-	    ${CMAKE_CURRENT_SOURCE_DIR}/src/scene/*.hpp
-	    ${CMAKE_CURRENT_SOURCE_DIR}/src/audio/*.hpp
-	)
 
 	set(EXT_HEADERS  
 		${GLEW_INCLUDE}
@@ -52,14 +35,14 @@ if(WIN32)
 		${FREEIMAGE_LIB}
 		${FREETYPE_LIB}
         ${SFML_LIB}
+		${ASSIMP_LIB}
 	)
-
+	
 	include_directories(${EXT_HEADERS})
 
-	add_executable(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp ${GLB_SRC} ${GLB_HEADERS})
+	add_executable(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp ${SOURCE} ${HEADERS})
 
 	target_link_libraries(${PROJECT_NAME} ${LIBRARIES})
-
 endif(WIN32)
 
 if(UNIX)
@@ -83,25 +66,7 @@ if(UNIX)
 	
 	include_directories(${FREETYPE_INCLUDE_DIRS} ${CMAKE_CURRENT_SOURCE_DIR}/headers ${CMAKE_CURRENT_SOURCE_DIR}/src)
 	
-	file(GLOB SOURCES
-	    ${CMAKE_CURRENT_SOURCE_DIR}/src/core/*.cpp
-	    ${CMAKE_CURRENT_SOURCE_DIR}/src/graphics/*.cpp
-	    ${CMAKE_CURRENT_SOURCE_DIR}/src/gui/*.cpp
-	    ${CMAKE_CURRENT_SOURCE_DIR}/src/net/*.cpp
-	    ${CMAKE_CURRENT_SOURCE_DIR}/src/scene/*.cpp
-	    ${CMAKE_CURRENT_SOURCE_DIR}/src/audio/*.cpp
-	)
-	
-	file(GLOB HEADERS
-	    ${CMAKE_CURRENT_SOURCE_DIR}/src/core/*.hpp
-	    ${CMAKE_CURRENT_SOURCE_DIR}/src/graphics/*.hpp
-	    ${CMAKE_CURRENT_SOURCE_DIR}/src/gui/*.hpp
-	    ${CMAKE_CURRENT_SOURCE_DIR}/src/net/*.hpp
-	    ${CMAKE_CURRENT_SOURCE_DIR}/src/scene/*.hpp
-	    ${CMAKE_CURRENT_SOURCE_DIR}/src/audio/*.hpp
-    )
-	
-	add_executable(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp ${SOURCES} ${HEADERS})
+	add_executable(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp ${SOURCE} ${HEADERS})
 	
 	target_link_libraries(${PROJECT_NAME} ${FREETYPE_LIBRARIES})
 	target_link_libraries(${PROJECT_NAME} ${LIBRARIES})
