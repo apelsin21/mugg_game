@@ -40,7 +40,7 @@ if(WIN32)
 	
 	include_directories(${EXT_HEADERS})
 
-	add_executable(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp ${SOURCE} ${HEADERS})
+	add_executable(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp ${SOURCE})
 
 	target_link_libraries(${PROJECT_NAME} ${LIBRARIES})
 endif(WIN32)
@@ -62,11 +62,11 @@ if(UNIX)
 	
 	find_package(Freetype REQUIRED)
 	
-	set(CMAKE_CXX_FLAGS " -std=c++11")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 	
 	include_directories(${FREETYPE_INCLUDE_DIRS} ${CMAKE_CURRENT_SOURCE_DIR}/headers ${CMAKE_CURRENT_SOURCE_DIR}/src)
 	
-	add_executable(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp ${SOURCE} ${HEADERS})
+	add_executable(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp ${SOURCE})
 	
 	target_link_libraries(${PROJECT_NAME} ${FREETYPE_LIBRARIES})
 	target_link_libraries(${PROJECT_NAME} ${LIBRARIES})
