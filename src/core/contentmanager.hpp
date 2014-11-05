@@ -13,7 +13,7 @@
 #include <FreeImage.h>
 
 #include "graphics/graphicsdefs.hpp"
-#include "graphics/texture2d.hpp"
+#include "graphics/texture.hpp"
 #include "graphics/shader.hpp"
 #include "graphics/shaderprogram.hpp"
 #include "graphics/mesh.hpp"
@@ -29,7 +29,7 @@ namespace mugg {
                 std::ifstream inStream;
                 std::ofstream outStream;
            
-                std::vector<graphics::Texture2D*> textures;
+                std::vector<graphics::Texture*> textures;
                 std::vector<graphics::Shader*> shaders;
                 std::vector<graphics::ShaderProgram*> shaderPrograms;
 
@@ -47,7 +47,7 @@ namespace mugg {
 
                 int GetMaxTextureSize();
 
-                mugg::graphics::Texture2D* CreateTexture2D(const std::string&, bool);
+                mugg::graphics::Texture* CreateTexture(const std::string&, bool);
                 
                 bool GetTextFile(const std::string, std::string&);
                 

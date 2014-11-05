@@ -6,7 +6,7 @@
 #include <GL/glew.h>
 
 #include "gui/guiobject.hpp"
-#include "graphics/texture2d.hpp"
+#include "graphics/texture.hpp"
 
 namespace mugg {
     namespace gui {

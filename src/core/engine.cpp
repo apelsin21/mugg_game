@@ -11,25 +11,13 @@ mugg::core::Engine::Engine(bool createContext) {
     this->guiManager = nullptr;
     this->sceneManager = nullptr;
 
-    if(createContext) {
-        sf::ContextSettings settings(this->depthBits,
-                            this->stencilBits,
-                            this->msaa,
-                            this->majorVersion,
-                            this->minorVersion);
-
-        this->context = new sf::Context(settings, 800, 600);
-        
-        int error = glewInit();
-        if(error != GLEW_OK) {
-            std::string errorString = "GLEW failed to initialize, error:\n";
-            errorString += (const char*)glewGetErrorString(error);
-            Log(LogLevel::Error, errorString);
-        }
-    }
+    this->context = new sf::Context();
 }
 mugg::core::Engine::~Engine() {
     Log(LogLevel::Info, "Deleting engine instance");
+    if(this->context != nullptr) {
+        delete this->context;
+    }
 }
 
 mugg::gui::GUIManager* mugg::core::Engine::CreateGUIManager() {

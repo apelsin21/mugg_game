@@ -10,7 +10,7 @@
 #include <iostream>
 #include <string>
 
-#include "graphics/texture2d.hpp"
+#include "graphics/texture.hpp"
 #include "graphics/color.hpp"
 
 #include <assimp/Importer.hpp>
@@ -27,12 +27,12 @@ namespace mugg {
     namespace graphics {
         class Mesh {
             private:
-                mugg::graphics::Texture2D* texture;
+                mugg::graphics::Texture* texture;
 
-                std::vector<unsigned short> indices;
-                std::vector<glm::vec3> vertices;
-                std::vector<glm::vec2> uvs;
-                std::vector<glm::vec3> normals;
+                unsigned int indexCount;
+                unsigned int vertexCount;
+                unsigned int uvCount;
+                unsigned int normalCount;
 
                 std::string filepath;
 
@@ -40,33 +40,20 @@ namespace mugg {
 
                 bool loaded;
 
-                void GenIDS();
-
                 mugg::core::ContentManager* parent;
             public:
                 Mesh(mugg::core::ContentManager*);
                 ~Mesh();
 
-                mugg::graphics::Texture2D* GetTexture();
-                void SetTexture(mugg::graphics::Texture2D*);
+                mugg::graphics::Texture* GetTexture();
+                void SetTexture(mugg::graphics::Texture*);
 
-                void SetIndices(const std::vector<unsigned short>&);
-                std::vector<unsigned short> GetIndices();
-                int GetIndexCount();
-
-                void SetVertices(const std::vector<glm::vec3>&);
-                std::vector<glm::vec3> GetVertices();
-                int GetVertexCount();
-                
-                void SetUVS(const std::vector<glm::vec2>&);
-                std::vector<glm::vec2> GetUVS();
-                int GetUVCount();
+                unsigned int GetIndexCount();
+                unsigned int GetVertexCount();
+                unsigned int GetUVCount();
+                unsigned int GetNormalCount();
                 
                 bool Load(const std::string&);
-                
-                void SetNormals(const std::vector<glm::vec3>&);
-                std::vector<glm::vec3> GetNormals();
-                int GetNormalCount();
 
                 GLuint GetVAOID();
                 void SetVAOID(GLuint);
@@ -84,9 +71,6 @@ namespace mugg {
                 void SetElementBufferID(GLuint);
                 
                 std::string GetFilepath();
-                void SetFilepath(const std::string&);
-                
-                void Clear();
         };
     }
 }

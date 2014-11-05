@@ -12,6 +12,16 @@ mugg::core::Window::Window(mugg::core::Engine* p, const glm::vec2& res, const st
     this->resolution = res;
     this->title = title;
     this->internalHandle.create(sf::VideoMode(this->resolution.x, this->resolution.y), this->title, sf::Style::Default, settings);
+    
+    glewExperimental = GL_TRUE;
+    int error = glewInit();
+
+    if(error != GLEW_OK) {
+        std::string errorString = "GLEW failed to initialize, error:\n";
+        errorString += (const char*)glewGetErrorString(error);
+
+        Log(LogLevel::Error, errorString);
+    }
 }
 mugg::core::Window::~Window() {
     Log(LogLevel::Info, "Deleting window instance");

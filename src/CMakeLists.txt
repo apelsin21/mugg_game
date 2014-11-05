@@ -14,7 +14,7 @@ set(SOURCE
 	${CMAKE_CURRENT_SOURCE_DIR}/graphics/mesh.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/graphics/shader.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/graphics/shaderprogram.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/graphics/texture2d.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/graphics/texture.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/graphics/vertexarray.cpp
 	
 	#GUI
@@ -47,7 +47,7 @@ set(HEADERS
 	${CMAKE_CURRENT_SOURCE_DIR}/graphics/mesh.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/graphics/shader.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/graphics/shaderprogram.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/graphics/texture2d.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/graphics/texture.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/graphics/vertexarray.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/graphics/graphicsdefs.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/graphics/globject.hpp

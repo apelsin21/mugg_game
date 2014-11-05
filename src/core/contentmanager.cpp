@@ -40,7 +40,7 @@ int mugg::core::ContentManager::GetMaxTextureSize() {
     return this->maxTextureSize;
 }
 
-mugg::graphics::Texture2D* mugg::core::ContentManager::CreateTexture2D(const std::string &filepath, bool mipmaps) {
+mugg::graphics::Texture* mugg::core::ContentManager::CreateTexture(const std::string &filepath, bool mipmaps) {
     if(filepath == "") {
         std::cout << "Tried to load texture from empty string!\n";
         return nullptr;
@@ -49,7 +49,7 @@ mugg::graphics::Texture2D* mugg::core::ContentManager::CreateTexture2D(const std
     FREE_IMAGE_FORMAT format;
     FIBITMAP* bitmap = nullptr;
 
-    mugg::graphics::Texture2D* texture = new mugg::graphics::Texture2D(this);
+    mugg::graphics::Texture* texture = new mugg::graphics::Texture(this);
     texture->GenID();
     texture->Bind();
 

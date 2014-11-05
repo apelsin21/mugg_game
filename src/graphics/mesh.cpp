@@ -10,7 +10,12 @@ mugg::graphics::Mesh::Mesh(mugg::core::ContentManager* parent) {
     this->uvBufferID = -1;
     this->normalBufferID = -1;
     this->elementBufferID = -1;
-    
+   
+    this->vertexCount = 0;
+    this->indexCount = 0;
+    this->normalCount = 0;
+    this->uvCount = 0;
+
     this->texture = nullptr;
 }
 mugg::graphics::Mesh::~Mesh() {
@@ -35,10 +40,10 @@ mugg::graphics::Mesh::~Mesh() {
 	}
 }
 
-mugg::graphics::Texture2D* mugg::graphics::Mesh::GetTexture() {
+mugg::graphics::Texture* mugg::graphics::Mesh::GetTexture() {
     return this->texture;
 }
-void mugg::graphics::Mesh::SetTexture(mugg::graphics::Texture2D* texture) {
+void mugg::graphics::Mesh::SetTexture(mugg::graphics::Texture* texture) {
     this->texture = texture;
 }
 
@@ -97,10 +102,10 @@ bool mugg::graphics::Mesh::Load(const std::string& filepath) {
         return false;
     }
 
-    this->indices.clear();
-    this->vertices.clear();
-    this->normals.clear();
-    this->uvs.clear();
+    std::vector<unsigned int> indices;
+    std::vector<glm::vec3> vertices;
+    std::vector<glm::vec3> normals;
+    std::vector<glm::vec2> uvs;
 
     if(scene->HasMeshes()) {
         for(unsigned int i = 0; i < scene->mNumMeshes; i++) {
@@ -114,6 +119,7 @@ bool mugg::graphics::Mesh::Load(const std::string& filepath) {
                 }
                 
 				//If if has vertices, it has indices
+                //Which is pretty catchy too
                 for(unsigned int u = 0; u < tempMesh->mNumFaces; u++) {
                     if(tempMesh->mFaces[i].mNumIndices == 3) {
                         indices.push_back(tempMesh->mFaces[i].mIndices[0]);
@@ -157,13 +163,13 @@ bool mugg::graphics::Mesh::Load(const std::string& filepath) {
                tempPath += "/";
                tempPath += path.data;
                mugg::core::Log(mugg::core::LogLevel::Error, "Couldn't load texture " + tempPath + ", fix urgently!");
-               //mesh->SetTexture(this->CreateTexture2D(tempPath, false));
+               //mesh->SetTexture(this->CreateTexture(tempPath, false));
            }
        }
     } else {
         mugg::core::Log(mugg::core::LogLevel::Info, "Mesh " + filepath + " has no textures");
     }
-   
+
     if(glIsVertexArray(this->vaoID) != GL_TRUE) {
         glGenVertexArrays(1, &this->vaoID);
     }
@@ -200,6 +206,11 @@ bool mugg::graphics::Mesh::Load(const std::string& filepath) {
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->elementBufferID);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned short), &indices[0] , GL_STATIC_DRAW);
     }
+    
+    this->vertexCount = vertices.size();
+    this->indexCount = indices.size();
+    this->normalCount = normals.size();
+    this->uvCount = uvs.size();
 
     this->loaded = true;
 	this->filepath = filepath;
@@ -209,46 +220,16 @@ bool mugg::graphics::Mesh::Load(const std::string& filepath) {
 std::string mugg::graphics::Mesh::GetFilepath() {
     return this->filepath;
 }
-void mugg::graphics::Mesh::SetFilepath(const std::string& filepath) {
-    this->filepath = filepath;
-}
 
-void mugg::graphics::Mesh::SetIndices(const std::vector<unsigned short>& indices) {
-    this->indices = indices;
+unsigned int mugg::graphics::Mesh::GetIndexCount() {
+    return this->indexCount;
 }
-std::vector<unsigned short> mugg::graphics::Mesh::GetIndices() {
-    return this->indices;
+unsigned int mugg::graphics::Mesh::GetVertexCount() {
+    return this->vertexCount;
 }
-int mugg::graphics::Mesh::GetIndexCount() {
-    return this->indices.size();
+unsigned int mugg::graphics::Mesh::GetUVCount() {
+    return this->uvCount;
 }
-
-void mugg::graphics::Mesh::SetVertices(const std::vector<glm::vec3>& vertices) {
-    this->vertices = vertices;
-}
-std::vector<glm::vec3> mugg::graphics::Mesh::GetVertices() {
-    return this->vertices;
-}
-int mugg::graphics::Mesh::GetVertexCount() {
-    return this->vertices.size();
-}
-
-void mugg::graphics::Mesh::SetUVS(const std::vector<glm::vec2>& uvs) {
-    this->uvs = uvs;
-}
-std::vector<glm::vec2> mugg::graphics::Mesh::GetUVS() {
-    return this->uvs;
-}
-int mugg::graphics::Mesh::GetUVCount() {
-    return this->uvs.size();
-}
-
-void mugg::graphics::Mesh::SetNormals(const std::vector<glm::vec3>& normals) {
-    this->normals = normals;
-}
-std::vector<glm::vec3> mugg::graphics::Mesh::GetNormals() {
-    return this->normals;
-}
-int mugg::graphics::Mesh::GetNormalCount() {
-    return this->normals.size();
+unsigned int mugg::graphics::Mesh::GetNormalCount() {
+    return this->normalCount;
 }

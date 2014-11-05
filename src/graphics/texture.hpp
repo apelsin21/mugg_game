@@ -16,7 +16,7 @@ namespace mugg {
     }
     
     namespace graphics {
-    class Texture2D : public GLObject {
+    class Texture : public GLObject {
             private:
                 //Default texture is just a 2*2 checkerboard texture
                 GLfloat defaultTexture[12] = {
@@ -36,8 +36,8 @@ namespace mugg {
 
                 mugg::core::ContentManager* creator;
             public:
-                Texture2D(mugg::core::ContentManager*);
-                ~Texture2D();
+                Texture(mugg::core::ContentManager*);
+                ~Texture();
 
                 void SetFilepath(std::string);
                 std::string GetFilepath();

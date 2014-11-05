@@ -33,7 +33,7 @@ namespace mugg {
                 const unsigned int stencilBits  = 8;
                 const unsigned int msaa         = 0;
                 const unsigned int majorVersion = 3;
-                const unsigned int minorVersion = 0;
+                const unsigned int minorVersion = 3;
 
                 sf::Context* context;
             public:

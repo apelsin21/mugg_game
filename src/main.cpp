@@ -22,7 +22,7 @@ int main(void) {
     Engine engine(true);
 
     //Get a handle to a window so we can use it
-    Window* window = engine.CreateWindow(glm::vec2(800, 600), "Fun game hahahah");
+    Window* window = engine.CreateWindow(glm::vec2(800, 600), "Mugg game");
 
     //Get a pointer to the keyboard, so we can do basic input
     Keyboard* keyboard = engine.CreateKeyboard();
@@ -30,8 +30,6 @@ int main(void) {
 
     //Get a handle to a content manager, so we can load resources
     ContentManager* contentManager = engine.CreateContentManager();
-
-    SceneManager* sceneManager = engine.CreateSceneManager();
 
     Mesh* testMesh;
 
@@ -43,16 +41,11 @@ int main(void) {
                 " vertices and " + std::to_string(testMesh->GetNormalCount()) + " normals.");
     }
 
-    SceneNode* node = sceneManager->CreateSceneNode();
-    node->AddMesh(testMesh);
-
     while(window->IsOpen()) {
         //Close on ESC key down
         if(keyboard->IsKeyDown(mugg::core::Key::Escape)) {
             window->Close();
         }
-
-        sceneManager->Render();
 
         //You ofcourse need to swap your buffers
         window->SwapBuffers();
@@ -62,7 +55,6 @@ int main(void) {
     delete keyboard;
     delete mouse;
     delete contentManager;
-    delete sceneManager;
 
     return 0;
 }
