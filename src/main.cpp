@@ -46,10 +46,6 @@ int main(void) {
 
     if(!testMesh->Load("data/models/complexshape.nff")) {
         Log(LogLevel::Error, "Failed to load mesh " + testMesh->GetFilepath());
-    } else {
-        Log(LogLevel::Info, "Successfully loaded mesh " + testMesh->GetFilepath()
-                + " which has " + std::to_string(testMesh->GetVertexCount()) +
-                " vertices and " + std::to_string(testMesh->GetNormalCount()) + " normals.");
     }
 
     while(window->IsOpen()) {
