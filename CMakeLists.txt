@@ -5,21 +5,25 @@ add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/src)
 
 if(WIN32)
     #LIBRARY DIRECTORIES
+	set(GLEW_LIB 		${CMAKE_CURRENT_SOURCE_DIR}/deps/windows/glew/lib/libglew32.dll.a)
 	set(FREETYPE_LIB 	${CMAKE_CURRENT_SOURCE_DIR}/deps/windows/freetype/lib/libfreetype.dll.a)
-	set(GLEW_LIB 		${CMAKE_CURRENT_SOURCE_DIR}/deps/windows/glew/lib/libglew32s.a)
-	set(ASSIMP_LIB		${CMAKE_CURRENT_SOURCE_DIR}/deps/windows/assimp/lib/assimp.lib)
+	set(ZLIB_LIB		${CMAKE_CURRENT_SOURCE_DIR}/deps/windows/zlib/lib/libzlibstatic.a) #Only needed for assimp
+	set(ASSIMP_LIB		${CMAKE_CURRENT_SOURCE_DIR}/deps/windows/assimp/lib/libassimp.a)
 	set(SFML_LIB 		${CMAKE_CURRENT_SOURCE_DIR}/deps/windows/sfml/lib/libsfml-main.a
-						${CMAKE_CURRENT_SOURCE_DIR}/deps/windows/sfml/lib/libsfml-system-s.a
-						${CMAKE_CURRENT_SOURCE_DIR}/deps/windows/sfml/lib/libsfml-window-s.a
-						${CMAKE_CURRENT_SOURCE_DIR}/deps/windows/sfml/lib/libsfml-network-s.a
-						${CMAKE_CURRENT_SOURCE_DIR}/deps/windows/sfml/lib/libsfml-audio-s.a)
+						${CMAKE_CURRENT_SOURCE_DIR}/deps/windows/sfml/lib/libsfml-system.a
+						${CMAKE_CURRENT_SOURCE_DIR}/deps/windows/sfml/lib/libsfml-window.a
+						${CMAKE_CURRENT_SOURCE_DIR}/deps/windows/sfml/lib/libsfml-network.a
+						${CMAKE_CURRENT_SOURCE_DIR}/deps/windows/sfml/lib/libsfml-audio.a)
 	set(FREEIMAGE_LIB 	${CMAKE_CURRENT_SOURCE_DIR}/deps/windows/freeimage/lib/FreeImage.lib)
 
     #INCLUDE DIRECTORIES
     set(SFML_INCLUDE        ${CMAKE_CURRENT_SOURCE_DIR}/deps/windows/sfml/include)
 	set(GLEW_INCLUDE 		${CMAKE_CURRENT_SOURCE_DIR}/deps/windows/glew/include)
-	set(FREETYPE_INCLUDE 	${CMAKE_CURRENT_SOURCE_DIR}/deps/windows/freetype/include)
+	set(FREETYPE_INCLUDE 	${CMAKE_CURRENT_SOURCE_DIR}/deps/windows/freetype/include
+							${CMAKE_CURRENT_SOURCE_DIR}/deps/windows/freetype/include/freetype2)
 	set(FREEIMAGE_INCLUDE 	${CMAKE_CURRENT_SOURCE_DIR}/deps/windows/freeimage/include)
+	set(ZLIB_INCLUDE		${CMAKE_CURRENT_SOURCE_DIR}/deps/windows/zlib/include)
+	set(ASSIMP_INCLUDE		${CMAKE_CURRENT_SOURCE_DIR}/deps/windows/assimp/include)
 	set(GLM_INCLUDE 		${CMAKE_CURRENT_SOURCE_DIR}/deps/windows/glm)
 
 	set(EXT_HEADERS  
@@ -28,6 +32,9 @@ if(WIN32)
 		${FREEIMAGE_INCLUDE}
 		${FREETYPE_INCLUDE}
 	    ${SFML_INCLUDE}
+		${ASSIMP_INCLUDE}
+		${ZLIB_INCLUDE}
+		${CMAKE_CURRENT_SOURCE_DIR}/src
     )
 
 	set(LIBRARIES
@@ -36,6 +43,7 @@ if(WIN32)
 		${FREETYPE_LIB}
         ${SFML_LIB}
 		${ASSIMP_LIB}
+		${ZLIB_LIB}
 	)
 	
 	include_directories(${EXT_HEADERS})
