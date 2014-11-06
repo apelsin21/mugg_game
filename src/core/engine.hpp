@@ -27,18 +27,22 @@ namespace mugg {
                 mugg::core::Window* window;
                 mugg::core::Keyboard* keyboard;
                 mugg::core::Mouse* mouse;
-
+           
                 //OpenGL context settings
-                const unsigned int depthBits    = 24;
-                const unsigned int stencilBits  = 8;
-                const unsigned int msaa         = 0;
-                const unsigned int majorVersion = 3;
-                const unsigned int minorVersion = 3;
+                unsigned int majorVer, minorVer, msaaLvl, depthBits, stencilBits;
 
                 sf::Context* context;
             public:
-                Engine(bool);
+                Engine();
                 ~Engine();
+
+                bool InitializeGLContext(unsigned int, unsigned int, unsigned int, unsigned int);
+
+                //OpenGL context values that we got from the GL implementation
+                std::string GetRendererString();
+                std::string GetGLVendorString();
+                int GetGLMajorVer();
+                int GetGLMinorVer();
 
                 mugg::core::Window* CreateWindow(const glm::vec2&, const std::string&);
                 mugg::core::Window* GetWindow();
@@ -57,8 +61,6 @@ namespace mugg {
 
                 mugg::core::ContentManager* CreateContentManager();
                 mugg::core::ContentManager* GetContentManager();
-
-                sf::Context GetContextSettings();
         };
     }
 }

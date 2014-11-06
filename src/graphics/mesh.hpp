@@ -39,10 +39,8 @@ namespace mugg {
                 GLuint vaoID, positionBufferID, uvBufferID, normalBufferID, elementBufferID;
 
                 bool loaded;
-
-                mugg::core::ContentManager* parent;
             public:
-                Mesh(mugg::core::ContentManager*);
+                Mesh();
                 ~Mesh();
 
                 mugg::graphics::Texture* GetTexture();

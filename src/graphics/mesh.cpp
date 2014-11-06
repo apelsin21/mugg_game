@@ -1,8 +1,6 @@
 #include "graphics/mesh.hpp"
 
-mugg::graphics::Mesh::Mesh(mugg::core::ContentManager* parent) {
-    this->parent = parent;
-
+mugg::graphics::Mesh::Mesh() {
     this->loaded = false;
 
     this->vaoID = -1;
@@ -10,7 +8,7 @@ mugg::graphics::Mesh::Mesh(mugg::core::ContentManager* parent) {
     this->uvBufferID = -1;
     this->normalBufferID = -1;
     this->elementBufferID = -1;
-   
+    
     this->vertexCount = 0;
     this->indexCount = 0;
     this->normalCount = 0;
@@ -158,7 +156,7 @@ bool mugg::graphics::Mesh::Load(const std::string& filepath) {
            aiString path;
 
            if(material->GetTexture(aiTextureType_DIFFUSE, 0, &path, NULL, NULL, NULL, NULL, NULL) == AI_SUCCESS) {
-               //Make a full path
+               //Make a full path from the local path(relative to the mesh)
                std::string tempPath = filepath.substr(0, filepath.find_last_of("\\/"));
                tempPath += "/";
                tempPath += path.data;
@@ -169,14 +167,14 @@ bool mugg::graphics::Mesh::Load(const std::string& filepath) {
     } else {
         mugg::core::Log(mugg::core::LogLevel::Info, "Mesh " + filepath + " has no textures");
     }
-
-    if(glIsVertexArray(this->vaoID) != GL_TRUE) {
+    
+    if(glIsVertexArray(this->vaoID) == GL_FALSE) {
         glGenVertexArrays(1, &this->vaoID);
     }
     glBindVertexArray(this->vaoID);
 
     if(!vertices.empty()) {
-        if(glIsBuffer(this->positionBufferID) != GL_TRUE) {
+        if(glIsBuffer(this->positionBufferID) == GL_FALSE) {
             glGenBuffers(1, &this->positionBufferID);
         }
         glBindBuffer(GL_ARRAY_BUFFER, this->positionBufferID);
@@ -184,7 +182,7 @@ bool mugg::graphics::Mesh::Load(const std::string& filepath) {
     }
 
     if(!uvs.empty()) {
-        if(glIsBuffer(this->uvBufferID) != GL_TRUE) {
+        if(glIsBuffer(this->uvBufferID) == GL_FALSE) {
             glGenBuffers(1, &this->uvBufferID);
         }
         glBindBuffer(GL_ARRAY_BUFFER, this->uvBufferID);
@@ -192,7 +190,7 @@ bool mugg::graphics::Mesh::Load(const std::string& filepath) {
     }
 
     if(!normals.empty()) {
-        if(glIsBuffer(this->normalBufferID) != GL_TRUE) {
+        if(glIsBuffer(this->normalBufferID) == GL_FALSE) {
             glGenBuffers(1, &this->normalBufferID);
         }
         glBindBuffer(GL_ARRAY_BUFFER, this->normalBufferID);
@@ -200,7 +198,7 @@ bool mugg::graphics::Mesh::Load(const std::string& filepath) {
     }
 
     if(!indices.empty()) {
-        if(glIsBuffer(this->elementBufferID) != GL_TRUE) {
+        if(glIsBuffer(this->elementBufferID) == GL_FALSE) {
             glGenBuffers(1, &this->elementBufferID);
         }
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->elementBufferID);

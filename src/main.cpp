@@ -19,7 +19,18 @@ using namespace graphics;
 
 int main(void) {
     //Create an engine
-    Engine engine(true);
+    Engine engine;
+
+    if(!engine.InitializeGLContext(24, 8, 3, 0)) {
+        Log(LogLevel::Error, "Failed to initialize OpenGL");
+        return -1;
+    } else {
+        std::cout << "Engine OpenGL context:"
+                  << "\nVendor: " << engine.GetGLVendorString()
+                  << "\nRenderer: " << engine.GetRendererString() 
+                  << "\nOpenGL Version: " << engine.GetGLMajorVer() << "."
+                  << engine.GetGLMinorVer() << "\n";
+    }
 
     //Get a handle to a window so we can use it
     Window* window = engine.CreateWindow(glm::vec2(800, 600), "Mugg game");
@@ -31,7 +42,7 @@ int main(void) {
     //Get a handle to a content manager, so we can load resources
     ContentManager* contentManager = engine.CreateContentManager();
 
-    Mesh* testMesh;
+    Mesh* testMesh = new Mesh();
 
     if(!testMesh->Load("data/models/complexshape.nff")) {
         Log(LogLevel::Error, "Failed to load mesh " + testMesh->GetFilepath());
