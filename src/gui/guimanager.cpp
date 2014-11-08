@@ -12,7 +12,7 @@ mugg::gui::GUIManager::GUIManager(mugg::core::Engine* parent) {
     this->posLocation = 1;
 
     //THIS IS AN UNREADABLE MESS
-    //TODO: MAKE BETTER 
+    //TODO: Put code into functions, this is retarded
 
     this->vertexShader = new mugg::graphics::Shader(graphics::ShaderType::VertexShader, true);
     this->fragmentShader = new mugg::graphics::Shader(graphics::ShaderType::FragmentShader, true);

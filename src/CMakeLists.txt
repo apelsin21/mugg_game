@@ -27,6 +27,9 @@ set(SOURCE
 	#Scene
 	${CMAKE_CURRENT_SOURCE_DIR}/scene/scenemanager.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/scene/scenenode.cpp
+	
+    #Game
+    ${CMAKE_CURRENT_SOURCE_DIR}/game/game.cpp
 
    	PARENT_SCOPE
 )
@@ -65,6 +68,10 @@ set(HEADERS
 	#Scene
 	${CMAKE_CURRENT_SOURCE_DIR}/scene/scenemanager.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/scene/scenenode.hpp
+    
+    #Game
+    ${CMAKE_CURRENT_SOURCE_DIR}/game/game.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/game/gamestate.hpp
    	
 	PARENT_SCOPE
 )
