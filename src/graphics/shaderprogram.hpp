@@ -22,7 +22,7 @@ namespace mugg {
 
                 std::vector<GLuint> shaders;
             public:
-                ShaderProgram(bool);
+                ShaderProgram();
                 ~ShaderProgram();
                 
                 void CreateID();

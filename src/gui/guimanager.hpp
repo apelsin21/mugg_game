@@ -24,10 +24,6 @@
 #include "core/logger.hpp"
 
 namespace mugg {
-    namespace core {
-        class Engine;
-    }
-    
     namespace gui {
         class Sprite;
         
@@ -73,14 +69,14 @@ namespace mugg {
                 std::string posAttribName, uvAttribName, modelAttribName, projectionMatrixUniformName;
                 GLint posLocation, uvLocation, modelLocation, projectionMatrixUniformLocation;
 
-                mugg::core::Engine* parent;
-
                 glm::mat4 projectionMatrix;
 
                 void UpdateSpriteBatches();
             public:
-                GUIManager(mugg::core::Engine*);
+                GUIManager();
                 ~GUIManager();
+
+                bool Initialize();
 
                 mugg::gui::Sprite* CreateSprite();
                 void UpdateSprite(unsigned int);

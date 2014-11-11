@@ -62,19 +62,19 @@ bool mugg::game::Game::Start() {
         return false;
     }
     
-    //this->sceneManager = this->engine->CreateSceneManager();
+    this->sceneManager = new mugg::scene::SceneManager();
 
-    //if(!this->sceneManager) {
-    //    mugg::core::Log(mugg::core::LogLevel::Error, "Failed to create SceneManager, exiting");
-    //    return false;
-    //}
+    if(!this->sceneManager) {
+        mugg::core::Log(mugg::core::LogLevel::Error, "Failed to create SceneManager, exiting");
+        return false;
+    }
     
-    //this->guiManager = this->engine->CreateGUIManager();
+    this->guiManager = new mugg::gui::GUIManager();
 
-    //if(!this->guiManager) {
-    //    mugg::core::Log(mugg::core::LogLevel::Error, "Failed to create GUIManager, exiting");
-    //    return false;
-    //}
+    if(!this->guiManager) {
+        mugg::core::Log(mugg::core::LogLevel::Error, "Failed to create GUIManager, exiting");
+        return false;
+    }
 
     srand(static_cast<unsigned>(time(0)));
 
@@ -114,9 +114,17 @@ void mugg::game::Game::Run() {
 void mugg::game::Game::Intro() {
     this->currentState = GameState::MainMenu;
 
-    //if(!this->sceneManager->Initialize()) {
-    //    mugg::core::Log(mugg::core::LogLevel::Error, "SceneManager failed to initialize!");
-    //}
+    if(!this->engine->Initialize()) {
+        mugg::core::Log(mugg::core::LogLevel::Error, "Engine failed to initialize!");
+    }
+
+    if(!this->sceneManager->Initialize()) {
+        mugg::core::Log(mugg::core::LogLevel::Error, "SceneManager failed to initialize!");
+    }
+
+    if(!this->guiManager->Initialize()) {
+        mugg::core::Log(mugg::core::LogLevel::Error, "GUIManager failed to initialize!");
+    }
 }
 void mugg::game::Game::MainMenu() {
     this->currentState = GameState::InGame;

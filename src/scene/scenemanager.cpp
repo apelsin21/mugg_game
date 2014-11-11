@@ -1,34 +1,39 @@
 #include "scene/scenemanager.hpp"
 
-mugg::scene::SceneManager::SceneManager(mugg::core::Engine* parent) {
-    this->parent = parent;
-    
+mugg::scene::SceneManager::SceneManager() {
     this->posAttribName = "v_position";
     this->uvAttribName = "v_uv";
     this->normalAttribName = "v_normal";
 }
 mugg::scene::SceneManager::~SceneManager() {
     for(unsigned int i = 0; i < this->sceneNodes.size(); i++) {
-        if(this->sceneNodes[i] != nullptr) {
+        if(this->sceneNodes[i]) {
             delete this->sceneNodes[i];
         }
     }
 
-    if(this->shaderProgram != nullptr) {
+    if(this->shaderProgram) {
+        this->shaderProgram->DeleteID();
         delete this->shaderProgram;
     }
-    if(this->vertexShader != nullptr) {
+    if(this->vertexShader) {
+        this->vertexShader->DeleteID();
         delete this->vertexShader;
     }
-    if(this->fragmentShader != nullptr) {
+    if(this->fragmentShader) {
+        this->fragmentShader->DeleteID();
         delete this->fragmentShader;
     }
 }
 
 bool mugg::scene::SceneManager::Initialize() {
-    this->vertexShader = new mugg::graphics::Shader(graphics::ShaderType::VertexShader, true);
-    this->fragmentShader = new mugg::graphics::Shader(graphics::ShaderType::FragmentShader, true);
-    this->shaderProgram = new mugg::graphics::ShaderProgram(true);
+    this->vertexShader = new mugg::graphics::Shader(graphics::ShaderType::VertexShader);
+    this->fragmentShader = new mugg::graphics::Shader(graphics::ShaderType::FragmentShader);
+    this->shaderProgram = new mugg::graphics::ShaderProgram();
+
+    this->vertexShader->CreateID();
+    this->fragmentShader->CreateID();
+    this->shaderProgram->CreateID();
 
     this->vertexShader->SetData(this->vertexShaderSrc);
     this->fragmentShader->SetData(this->fragmentShaderSrc);

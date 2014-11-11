@@ -1,12 +1,9 @@
 #include "graphics/shader.hpp"
 
-mugg::graphics::Shader::Shader(mugg::graphics::ShaderType type, bool createID) : GLObject() {
+mugg::graphics::Shader::Shader(mugg::graphics::ShaderType type) : GLObject() {
     this->type = type;
     this->loaded = false;
     this->compiledSuccessfully = false;
-
-    if(createID)
-        this->CreateID();
 }
 mugg::graphics::Shader::~Shader() {
 }

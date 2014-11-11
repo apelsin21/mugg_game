@@ -1,32 +1,64 @@
 #include "gui/guimanager.hpp"
 #include "gui/sprite.hpp"
-#include "core/engine.hpp"
 
-mugg::gui::GUIManager::GUIManager(mugg::core::Engine* parent) {
-    this->parent = parent;
-
-    mugg::core::Log(mugg::core::LogLevel::Info, "Creating GUIManager instance");
-
+mugg::gui::GUIManager::GUIManager() {
     this->vaoID = -1;
 
     this->posLocation = 1;
 
-    //THIS IS AN UNREADABLE MESS
-    //TODO: Put code into functions, this is retarded
+}
 
-    this->vertexShader = new mugg::graphics::Shader(graphics::ShaderType::VertexShader, true);
-    this->fragmentShader = new mugg::graphics::Shader(graphics::ShaderType::FragmentShader, true);
-    this->shaderProgram = new mugg::graphics::ShaderProgram(true);
+mugg::gui::GUIManager::~GUIManager() {
+    this->shaderProgram->DeleteID();
+    this->vertexShader->DeleteID();
+    this->fragmentShader->DeleteID();
+
+    delete this->shaderProgram;
+    delete this->vertexShader;
+    delete this->fragmentShader;
+
+    for(unsigned int i = 0; i < this->sprites.size(); i++) {
+        if(this->sprites[i] != nullptr) {
+            delete this->sprites[i];
+        }
+    }
+    for(unsigned int i = 0; i < this->spriteBatches.size(); i++) {
+        if(this->spriteBatches[i] != nullptr) {
+            delete this->spriteBatches[i];
+        }
+    }
+
+    glDeleteVertexArrays(1, &this->vaoID);
+}
+
+bool mugg::gui::GUIManager::Initialize() {
+    this->vertexShader = new mugg::graphics::Shader(graphics::ShaderType::VertexShader);
+    this->fragmentShader = new mugg::graphics::Shader(graphics::ShaderType::FragmentShader);
+    this->shaderProgram = new mugg::graphics::ShaderProgram();
+
+    this->vertexShader->CreateID();
+    this->fragmentShader->CreateID();
+    this->shaderProgram->CreateID();
 
     this->vertexShader->SetData(this->vertexShaderSrc);
     this->fragmentShader->SetData(this->fragmentShaderSrc);
     
-    this->vertexShader->Compile();
-    this->fragmentShader->Compile();
-    
+    if(!this->vertexShader->Compile()) {
+        mugg::core::Log(mugg::core::LogLevel::Error, "GUIManager vertex shader failed to compile");
+        return false;
+    }
+    if(!this->fragmentShader->Compile()) {
+        mugg::core::Log(mugg::core::LogLevel::Error, "GUIManager fragment shader failed to compile");
+        return false;
+    }
+
     this->shaderProgram->AttachShader(this->vertexShader);
     this->shaderProgram->AttachShader(this->fragmentShader);
-    this->shaderProgram->Link();
+    
+    if(!this->shaderProgram->Link()) {
+        mugg::core::Log(mugg::core::LogLevel::Error, "GUIManager shader program failed to link");
+        return false;
+    }
     
     this->posAttribName                 = "v_position";
     this->uvAttribName                  = "v_uv";
@@ -76,31 +108,8 @@ mugg::gui::GUIManager::GUIManager(mugg::core::Engine* parent) {
     
     glDisableVertexAttribArray(this->posLocation);
     glDisableVertexAttribArray(this->uvLocation);
-}
 
-mugg::gui::GUIManager::~GUIManager() {
-    mugg::core::Log(mugg::core::LogLevel::Info, "Deleting GUIManager instance");
-
-    this->shaderProgram->DeleteID();
-    this->vertexShader->DeleteID();
-    this->fragmentShader->DeleteID();
-
-    delete this->shaderProgram;
-    delete this->vertexShader;
-    delete this->fragmentShader;
-
-    for(unsigned int i = 0; i < this->sprites.size(); i++) {
-        if(this->sprites[i] != nullptr) {
-            delete this->sprites[i];
-        }
-    }
-    for(unsigned int i = 0; i < this->spriteBatches.size(); i++) {
-        if(this->spriteBatches[i] != nullptr) {
-            delete this->spriteBatches[i];
-        }
-    }
-
-    glDeleteVertexArrays(1, &this->vaoID);
+    return true;
 }
 
 void mugg::gui::GUIManager::UpdateSpriteBatches() {

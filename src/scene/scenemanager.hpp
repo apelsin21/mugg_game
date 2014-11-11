@@ -19,10 +19,6 @@
 #include "core/logger.hpp"
 
 namespace mugg {
-    namespace core {
-        class Engine;
-    }
-    
     namespace scene {
         class SceneManager {
             private:
@@ -59,7 +55,6 @@ namespace mugg {
                     }
                 );
 
-                mugg::core::Engine* parent;
                 mugg::graphics::Shader* vertexShader;
                 mugg::graphics::Shader* fragmentShader;
                 mugg::graphics::ShaderProgram* shaderProgram;
@@ -68,7 +63,7 @@ namespace mugg {
                 
                 GLint posLocation, uvLocation, normalLocation;
             public:
-                SceneManager(mugg::core::Engine*);
+                SceneManager();
                 ~SceneManager();
 
                 bool Initialize();

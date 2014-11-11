@@ -31,7 +31,7 @@ namespace mugg {
 
                 mugg::core::ContentManager* creator;
             public:
-                Shader(mugg::graphics::ShaderType, bool);
+                Shader(mugg::graphics::ShaderType);
                 ~Shader();
 
                 void CreateID();

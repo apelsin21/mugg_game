@@ -1,11 +1,8 @@
 #include "graphics/shaderprogram.hpp"
 
-mugg::graphics::ShaderProgram::ShaderProgram(bool createID = true) : GLObject() {
+mugg::graphics::ShaderProgram::ShaderProgram() : GLObject() {
     this->linked = false;
     this->compiledSuccessfully = false;
-
-    if(createID)
-        this->CreateID();
 }
 mugg::graphics::ShaderProgram::~ShaderProgram() {
 }
