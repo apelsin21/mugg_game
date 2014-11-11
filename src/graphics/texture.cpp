@@ -56,6 +56,7 @@ bool mugg::graphics::Texture::Load(const std::string& filepath, bool genMipMaps)
 
     if(!bitmap) {
         mugg::core::Log(mugg::core::LogLevel::Error, "Failed to load texture " + filepath + ", corrupt or invalid bitmap!");
+        FreeImage_Unload(bitmap);
         return false;
     }
 
@@ -72,23 +73,25 @@ bool mugg::graphics::Texture::Load(const std::string& filepath, bool genMipMaps)
         bitmap = temp;
     }
 
-    this->Bind();
-
-    this->SetWrap(this->uWrap, this->vWrap);
-    this->SetFilter(this->minFilter, this->magFilter);
     this->width     =   FreeImage_GetWidth(bitmap);
     this->height    =   FreeImage_GetHeight(bitmap);
+    this->bpp       =   FreeImage_GetBPP(bitmap);
+    this->filepath  =   filepath;
+    this->loaded    =   true;
+    this->mipMaps   =   genMipMaps;
+    
+    this->Bind();
+    
+    this->SetWrap(this->uWrap, this->vWrap);
+    this->SetFilter(this->minFilter, this->magFilter);
 
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_BGRA, GL_UNSIGNED_BYTE, (GLvoid*)FreeImage_GetBits(bitmap));
 
     if(genMipMaps) {
         glGenerateMipmap(GL_TEXTURE_2D);
     }
-
-    this->bpp       =   FreeImage_GetBPP(bitmap);
-    this->filepath  =   filepath;
-    this->loaded    =   true;
-    this->mipMaps   =   genMipMaps;
+    
+    FreeImage_Unload(bitmap);
 
     return true;
 }
