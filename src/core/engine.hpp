@@ -24,10 +24,6 @@ namespace mugg {
                 mugg::core::ContentManager* contentManager;
                 mugg::scene::SceneManager* sceneManager;
 
-                mugg::core::Window* window;
-                mugg::core::Keyboard* keyboard;
-                mugg::core::Mouse* mouse;
-           
                 //OpenGL context settings
                 unsigned int majorVer, minorVer, msaaLvl, depthBits, stencilBits;
 
@@ -43,15 +39,6 @@ namespace mugg {
                 std::string GetGLVendorString();
                 int GetGLMajorVer();
                 int GetGLMinorVer();
-
-                mugg::core::Window* CreateWindow(const glm::vec2&, const std::string&);
-                mugg::core::Window* GetWindow();
-
-                mugg::core::Keyboard* CreateKeyboard();
-                mugg::core::Keyboard* GetKeyboard();
-
-                mugg::core::Mouse* CreateMouse();
-                mugg::core::Mouse* GetMouse();
 
                 mugg::scene::SceneManager* CreateSceneManager();
                 mugg::scene::SceneManager* GetSceneManager();

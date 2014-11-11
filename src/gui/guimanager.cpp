@@ -173,11 +173,6 @@ void mugg::gui::GUIManager::Render() {
     for(unsigned int i = 0; i <= 4; i++)
         glEnableVertexAttribArray(i + this->modelLocation); 
 
-    glm::vec2 res = this->parent->GetWindow()->GetResolution();
-
-    this->projectionMatrix = glm::ortho<float>(0.0f, res.x, res.y, 0.0f, -1.0f, 1.0f);
-    glUniformMatrix4fv(this->projectionMatrixUniformLocation, 1, GL_FALSE, glm::value_ptr(this->projectionMatrix));
-
     for(unsigned int i = 0; i < this->spriteBatches.size(); i++) {    
         for(unsigned int u = 0; u < this->spritesToBeUpdated.size(); u++) {
             this->spriteBatches[i]->UpdateSprite(this->sprites[this->spritesToBeUpdated[u]]);

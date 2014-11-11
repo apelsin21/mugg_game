@@ -44,7 +44,8 @@ set(HEADERS
 	${CMAKE_CURRENT_SOURCE_DIR}/core/mouse.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/core/window.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/core/logger.hpp
-	
+	${CMAKE_CURRENT_SOURCE_DIR}/core/keydefs.hpp
+
 	#Graphics
 	${CMAKE_CURRENT_SOURCE_DIR}/graphics/color.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/graphics/mesh.hpp

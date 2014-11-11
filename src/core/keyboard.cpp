@@ -1,7 +1,6 @@
 #include "core/keyboard.hpp"
 
-mugg::core::Keyboard::Keyboard(Engine* parent) {
-    this->parent = parent;
+mugg::core::Keyboard::Keyboard() {
 }
 mugg::core::Keyboard::~Keyboard() {
 }

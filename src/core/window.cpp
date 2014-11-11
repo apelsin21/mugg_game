@@ -1,10 +1,6 @@
 #include "core/window.hpp"
 
-mugg::core::Window::Window(mugg::core::Engine* p, const glm::vec2& res, const std::string& title) {
-    this->parent = p;
-
-    Log(LogLevel::Info, "Creating window instance");
-    
+mugg::core::Window::Window(const glm::vec2& res, const std::string& title) {
     this->focused = false;
     this->open = true;
 

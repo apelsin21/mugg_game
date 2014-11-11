@@ -41,21 +41,21 @@ bool mugg::game::Game::Start() {
         return false;
     }
 
-    this->keyboard = this->engine->CreateKeyboard();
+    this->keyboard = new mugg::core::Keyboard();
 
     if(!this->keyboard) {
         mugg::core::Log(mugg::core::LogLevel::Error, "Failed to create keyboard, exiting");
         return false;
     }
     
-    this->mouse = this->engine->CreateMouse();
+    this->mouse = new mugg::core::Mouse();
 
     if(!this->mouse) {
         mugg::core::Log(mugg::core::LogLevel::Error, "Failed to create mouse, exiting");
         return false;
     }
     
-    this->window = this->engine->CreateWindow(glm::vec2(800, 600), this->windowTitle);
+    this->window = new mugg::core::Window(glm::vec2(800, 600), this->windowTitle);
 
     if(!this->window) {
         mugg::core::Log(mugg::core::LogLevel::Error, "Failed to create window, exiting");

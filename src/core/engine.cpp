@@ -4,9 +4,6 @@ mugg::core::Engine::Engine() {
     Log(LogLevel::Info, "Creating engine instance");
 
     this->guiManager = nullptr;
-    this->keyboard = nullptr;
-    this->mouse = nullptr;
-    this->window = nullptr;
     this->contentManager = nullptr;
     this->guiManager = nullptr;
     this->sceneManager = nullptr;
@@ -89,39 +86,6 @@ mugg::core::ContentManager* mugg::core::Engine::CreateContentManager() {
 }
 mugg::core::ContentManager* mugg::core::Engine::GetContentManager() {
     return this->contentManager;    
-}
-
-mugg::core::Window* mugg::core::Engine::CreateWindow(const glm::vec2& resolution, const std::string& title) {
-    if(this->window == nullptr) {
-        this->window = new mugg::core::Window(this, resolution, title);
-    }
-
-    return this->window;
-}
-mugg::core::Window* mugg::core::Engine::GetWindow() {
-    return this->window;
-}
-
-mugg::core::Keyboard* mugg::core::Engine::CreateKeyboard() {
-    if(this->keyboard == nullptr) {
-        this->keyboard = new mugg::core::Keyboard(this);
-    }
-
-    return this->keyboard;
-}
-mugg::core::Keyboard* mugg::core::Engine::GetKeyboard() {
-    return this->keyboard;
-}
-
-mugg::core::Mouse* mugg::core::Engine::CreateMouse() {
-    if(this->mouse == nullptr) {
-        this->mouse = new mugg::core::Mouse(this);
-    }
-
-    return this->mouse;
-}
-mugg::core::Mouse* mugg::core::Engine::GetMouse() {
-    return this->mouse;
 }
 
 mugg::scene::SceneManager* mugg::core::Engine::CreateSceneManager() {

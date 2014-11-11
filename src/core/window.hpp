@@ -18,8 +18,6 @@
 
 namespace mugg {
     namespace core {
-        class Engine;
-
         class Window {
             private:
                 glm::vec2 resolution;
@@ -29,10 +27,8 @@ namespace mugg {
                 sf::Window internalHandle;
 
                 mugg::graphics::Color backgroundColor;
-                mugg::core::Engine* parent;
             public:
-
-                Window(mugg::core::Engine*, const glm::vec2&, const std::string&);
+                Window(const glm::vec2&, const std::string&);
                 ~Window();
 
                 bool HasFocus();

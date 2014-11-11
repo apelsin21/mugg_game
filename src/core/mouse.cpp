@@ -1,8 +1,6 @@
 #include "core/mouse.hpp"
-#include "core/engine.hpp"
 
-mugg::core::Mouse::Mouse(Engine* parent) {
-    this->parent = parent;
+mugg::core::Mouse::Mouse() {
 }
 mugg::core::Mouse::~Mouse() {
 }
@@ -12,8 +10,8 @@ glm::vec2 mugg::core::Mouse::GetGlobalPosition() {
 
     return glm::vec2(pos.x, pos.y);
 }
-glm::vec2 mugg::core::Mouse::GetRelativePosition() {
-    sf::Vector2i pos = sf::Mouse::getPosition(this->parent->GetWindow()->GetInternalHandle());
+glm::vec2 mugg::core::Mouse::GetRelativePosition(const sf::Window& window) {
+    sf::Vector2i pos = sf::Mouse::getPosition(window);
 
     return glm::vec2(pos.x, pos.y);
 }
