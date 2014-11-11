@@ -67,6 +67,14 @@ void mugg::core::Window::SwapBuffers() {
                 this->resolution = glm::vec2(internalEvent.size.width, internalEvent.size.height);
                 glViewport(0, 0, this->resolution.x, this->resolution.y);
                 break;
+            case sf::Event::LostFocus:
+                this->focused = false;
+                break;
+            case sf::Event::GainedFocus:
+                this->focused = true;
+                break;
+            default:
+                break;
         }
     }
 

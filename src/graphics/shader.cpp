@@ -1,29 +1,19 @@
 #include "graphics/shader.hpp"
 
-mugg::graphics::Shader::Shader(mugg::graphics::ShaderType type, bool createID) : GLObject(nullptr) {
+mugg::graphics::Shader::Shader(mugg::graphics::ShaderType type, bool createID) : GLObject() {
     this->type = type;
-    this->filepath = "";
-    this->data = "";
     this->loaded = false;
     this->compiledSuccessfully = false;
-    this->type = type;
 
     if(createID)
         this->CreateID();
-}
-mugg::graphics::Shader::Shader(mugg::core::ContentManager* creator) : GLObject(creator){
-    this->type = mugg::graphics::ShaderType::VertexShader;
-    this->filepath = "";
-    this->data = "";
-    this->loaded = false;
-    this->compiledSuccessfully = false;
-    this->hasGeneratedID = false;
 }
 mugg::graphics::Shader::~Shader() {
 }
 
 void mugg::graphics::Shader::CreateID() {
-    this->ID = glCreateShader(mugg::graphics::ShaderTypeToGLEnum(this->type));
+    //this->ID = glCreateShader(mugg::graphics::ShaderTypeToGLEnum(this->type));
+    this->ID = glCreateShader(GL_VERTEX_SHADER);
     this->hasGeneratedID = true;
 }
 void mugg::graphics::Shader::DeleteID() {

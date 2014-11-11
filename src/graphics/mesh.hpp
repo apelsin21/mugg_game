@@ -20,10 +20,6 @@
 #include "core/logger.hpp"
 
 namespace mugg {
-    namespace core {
-        class ContentManager;
-    }
-    
     namespace graphics {
         class Mesh {
             private:

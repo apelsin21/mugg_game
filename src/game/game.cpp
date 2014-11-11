@@ -85,7 +85,7 @@ bool mugg::game::Game::ShouldClose() {
     return this->shouldClose;
 }
 void mugg::game::Game::Run() {
-    if(this->keyboard->IsKeyDown(mugg::core::Key::Escape)) {
+    if(this->keyboard->IsKeyDown(this->window, mugg::core::Key::Escape)) {
         this->currentState = GameState::Exit;
     }
 
@@ -113,12 +113,16 @@ void mugg::game::Game::Run() {
 
 void mugg::game::Game::Intro() {
     this->currentState = GameState::MainMenu;
+
+    //if(!this->sceneManager->Initialize()) {
+    //    mugg::core::Log(mugg::core::LogLevel::Error, "SceneManager failed to initialize!");
+    //}
 }
 void mugg::game::Game::MainMenu() {
     this->currentState = GameState::InGame;
 }
 void mugg::game::Game::RenderGame() {
-    if(this->keyboard->IsKeyDown(mugg::core::Key::Space)) {
+    if(this->keyboard->IsKeyDown(this->window, mugg::core::Key::Space)) {
         float r = static_cast<float>(rand() / static_cast<float>(RAND_MAX));
         float g = static_cast<float>(rand() / static_cast<float>(RAND_MAX));
         float b = static_cast<float>(rand() / static_cast<float>(RAND_MAX));

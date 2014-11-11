@@ -71,6 +71,8 @@ namespace mugg {
                 SceneManager(mugg::core::Engine*);
                 ~SceneManager();
 
+                bool Initialize();
+
                 mugg::scene::SceneNode* CreateSceneNode();
                 std::size_t GetNumberOfSceneNodes();
                 bool GetSceneNodeByIndex(int, mugg::scene::SceneNode*&);

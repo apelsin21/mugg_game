@@ -8,7 +8,6 @@
 #include "window.hpp"
 #include "core/keyboard.hpp"
 #include "core/mouse.hpp"
-#include "core/contentmanager.hpp"
 
 #include "gui/guimanager.hpp"
 

@@ -7,6 +7,7 @@
 #include <SFML/Window/Keyboard.hpp>
 
 #include "core/keydefs.hpp"
+#include "core/window.hpp"
 
 namespace mugg {
     namespace core {
@@ -16,7 +17,8 @@ namespace mugg {
                 Keyboard();
                 ~Keyboard();
                 
-                bool IsKeyDown(mugg::core::Key);
+                bool IsKeyDown(mugg::core::Window&, mugg::core::Key);
+                bool IsKeyDown(mugg::core::Window*, mugg::core::Key);
         };
         
         

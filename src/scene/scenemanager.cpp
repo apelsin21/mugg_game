@@ -2,34 +2,12 @@
 
 mugg::scene::SceneManager::SceneManager(mugg::core::Engine* parent) {
     this->parent = parent;
-
-    mugg::core::Log(mugg::core::LogLevel::Info, "Creating SceneManager");
-
+    
     this->posAttribName = "v_position";
     this->uvAttribName = "v_uv";
     this->normalAttribName = "v_normal";
-   
-    this->vertexShader = new mugg::graphics::Shader(graphics::ShaderType::VertexShader, true);
-    this->fragmentShader = new mugg::graphics::Shader(graphics::ShaderType::FragmentShader, true);
-    this->shaderProgram = new mugg::graphics::ShaderProgram(true);
-
-    this->vertexShader->SetData(this->vertexShaderSrc);
-    this->fragmentShader->SetData(this->fragmentShaderSrc);
-
-    this->vertexShader->Compile();
-    this->fragmentShader->Compile();
-
-    this->shaderProgram->AttachShader(this->vertexShader);
-    this->shaderProgram->AttachShader(this->fragmentShader);
-    this->shaderProgram->Link();
-
-    this->posLocation    = this->shaderProgram->GetAttrib(this->posAttribName);
-    this->uvLocation     = this->shaderProgram->GetAttrib(this->uvAttribName);
-    this->normalLocation = this->shaderProgram->GetAttrib(this->normalAttribName);
 }
 mugg::scene::SceneManager::~SceneManager() {
-    mugg::core::Log(mugg::core::LogLevel::Info, "Deleting SceneManager");
-    
     for(unsigned int i = 0; i < this->sceneNodes.size(); i++) {
         if(this->sceneNodes[i] != nullptr) {
             delete this->sceneNodes[i];
@@ -45,6 +23,39 @@ mugg::scene::SceneManager::~SceneManager() {
     if(this->fragmentShader != nullptr) {
         delete this->fragmentShader;
     }
+}
+
+bool mugg::scene::SceneManager::Initialize() {
+    this->vertexShader = new mugg::graphics::Shader(graphics::ShaderType::VertexShader, true);
+    this->fragmentShader = new mugg::graphics::Shader(graphics::ShaderType::FragmentShader, true);
+    this->shaderProgram = new mugg::graphics::ShaderProgram(true);
+
+    this->vertexShader->SetData(this->vertexShaderSrc);
+    this->fragmentShader->SetData(this->fragmentShaderSrc);
+
+    if(!this->vertexShader->Compile()) {
+        mugg::core::Log(mugg::core::LogLevel::Error, "SceneManager vertex shader failed to compile!");
+        return false;
+    }
+
+    if(!this->fragmentShader->Compile()) {
+        mugg::core::Log(mugg::core::LogLevel::Error, "SceneManager fragment shader failed to compile!");
+        return false;
+    }
+
+    this->shaderProgram->AttachShader(this->vertexShader);
+    this->shaderProgram->AttachShader(this->fragmentShader);
+    
+    if(!this->shaderProgram->Link()) {
+        mugg::core::Log(mugg::core::LogLevel::Error, "SceneManager shaderprogram failed to link!");
+        return false;
+    }
+
+    this->posLocation    = this->shaderProgram->GetAttrib(this->posAttribName);
+    this->uvLocation     = this->shaderProgram->GetAttrib(this->uvAttribName);
+    this->normalLocation = this->shaderProgram->GetAttrib(this->normalAttribName);
+
+    return true;
 }
 
 mugg::scene::SceneNode* mugg::scene::SceneManager::CreateSceneNode() {

@@ -4,7 +4,6 @@ mugg::core::Engine::Engine() {
     Log(LogLevel::Info, "Creating engine instance");
 
     this->guiManager = nullptr;
-    this->contentManager = nullptr;
     this->guiManager = nullptr;
     this->sceneManager = nullptr;
     this->context = nullptr;
@@ -75,17 +74,6 @@ mugg::gui::GUIManager* mugg::core::Engine::CreateGUIManager() {
 }
 mugg::gui::GUIManager* mugg::core::Engine::GetGUIManager() {
     return this->guiManager;
-}
-
-mugg::core::ContentManager* mugg::core::Engine::CreateContentManager() {
-    if(this->contentManager != nullptr) {
-        this->contentManager = new mugg::core::ContentManager(this);
-    }
-
-    return this->contentManager;
-}
-mugg::core::ContentManager* mugg::core::Engine::GetContentManager() {
-    return this->contentManager;    
 }
 
 mugg::scene::SceneManager* mugg::core::Engine::CreateSceneManager() {

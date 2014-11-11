@@ -15,21 +15,14 @@
 #include "graphics/globject.hpp"
 
 namespace mugg {
-    namespace core {
-        class ContentManager;
-    }
-
     namespace graphics {
         class ShaderProgram : public GLObject {
             private:
                 bool linked, compiledSuccessfully;
 
                 std::vector<GLuint> shaders;
-
-                mugg::core::ContentManager* creator;
             public:
                 ShaderProgram(bool);
-                ShaderProgram(mugg::core::ContentManager*);
                 ~ShaderProgram();
                 
                 void CreateID();

@@ -5,16 +5,17 @@
 #include <string>
 #include <memory>
 
+#define GLEW_STATIC
 #include <GL/glew.h>
+
+#include <FreeImage.h>
+
+#include "core/logger.hpp"
 
 #include "graphics/graphicsdefs.hpp"
 #include "graphics/globject.hpp"
 
 namespace mugg {
-    namespace core {
-        class ContentManager;
-    }
-    
     namespace graphics {
     class Texture : public GLObject {
             private:
@@ -33,11 +34,11 @@ namespace mugg {
                 int width, height, bpp, colorsUsed;
                 std::string filepath;
                 bool loaded, hasGeneratedID, mipMaps;
-
-                mugg::core::ContentManager* creator;
             public:
-                Texture(mugg::core::ContentManager*);
+                Texture();
                 ~Texture();
+
+                bool Load(const std::string&, bool);
 
                 void SetFilepath(std::string);
                 std::string GetFilepath();

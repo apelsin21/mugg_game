@@ -2,7 +2,6 @@ set(SOURCE
 	${SOURCE}
 
 	#Core	
-	${CMAKE_CURRENT_SOURCE_DIR}/core/contentmanager.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/core/engine.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/core/fileutils.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/core/keyboard.cpp
@@ -37,7 +36,6 @@ set(HEADERS
    	${HEADERS}
 	
 	#Core
-	${CMAKE_CURRENT_SOURCE_DIR}/core/contentmanager.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/core/engine.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/core/fileutils.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/core/keyboard.hpp

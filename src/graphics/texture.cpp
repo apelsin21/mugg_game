@@ -1,6 +1,6 @@
 #include "graphics/texture.hpp"
 
-mugg::graphics::Texture::Texture(mugg::core::ContentManager* creator) : GLObject(creator) {
+mugg::graphics::Texture::Texture() : GLObject() {
     //Numbers
     this->width = 0;
     this->height = 0;
@@ -21,6 +21,83 @@ mugg::graphics::Texture::Texture(mugg::core::ContentManager* creator) : GLObject
     this->vWrap = mugg::graphics::TextureWrap::ClampToEdge;
 }
 mugg::graphics::Texture::~Texture() {
+}
+
+bool mugg::graphics::Texture::Load(const std::string& filepath, bool genMipMaps) {
+    if(filepath == "") {
+        mugg::core::Log(mugg::core::LogLevel::Error, "Tried to load texture from empty filepath");
+        return false;
+    }
+
+    FREE_IMAGE_FORMAT format;
+    FIBITMAP* bitmap = nullptr;
+
+    this->GenID();
+    this->Bind();
+
+    //Try to get texture format
+    format = FreeImage_GetFileType(filepath.c_str(), 0);
+
+    if(format == FIF_UNKNOWN) {
+        format = FreeImage_GetFIFFromFilename(filepath.c_str());
+    
+        if(format == FIF_UNKNOWN) {
+            mugg::core::Log(mugg::core::LogLevel::Error, "Failed to load texture " + filepath + ", invalid format or corrupt/invalid texture");
+            return false;
+        }
+    }
+
+    if(FreeImage_FIFSupportsReading(format)) {
+        bitmap = FreeImage_Load(format, filepath.c_str());
+    } else {
+        mugg::core::Log(mugg::core::LogLevel::Error, "Failed to load texture " + filepath + ", unsupported format for reading!");
+        return false;
+    }
+
+    if(!bitmap) {
+        mugg::core::Log(mugg::core::LogLevel::Error, "Failed to load texture " + filepath + ", corrupt or invalid bitmap!");
+        return false;
+    }
+
+    if(FreeImage_GetBPP(bitmap) != 32) {
+        //Neccessary because FreeImage_ConvertTo32Bits() gives back a copy for some reason
+        FIBITMAP* temp = FreeImage_ConvertTo32Bits(bitmap);
+
+        if(!temp) {
+            mugg::core::Log(mugg::core::LogLevel::Error, "Failed to convert texture " + filepath + ", to 32 bits!");
+            return false;
+        }
+
+        FreeImage_Unload(bitmap);
+        bitmap = temp;
+    }
+
+    this->Bind();
+
+    this->SetWrap(this->uWrap, this->vWrap);
+    this->SetFilter(this->minFilter, this->magFilter);
+    this->width     =   FreeImage_GetWidth(bitmap);
+    this->height    =   FreeImage_GetHeight(bitmap);
+
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_BGRA, GL_UNSIGNED_BYTE, (GLvoid*)FreeImage_GetBits(bitmap));
+
+    if(genMipMaps) {
+        glGenerateMipmap(GL_TEXTURE_2D);
+    }
+
+    this->bpp       =   FreeImage_GetBPP(bitmap);
+    this->filepath  =   filepath;
+    this->loaded    =   true;
+    this->mipMaps   =   genMipMaps;
+
+    return true;
+}
+
+void mugg::graphics::Texture::SetFilepath(std::string filepath) {
+    this->filepath = filepath;
+}
+std::string mugg::graphics::Texture::GetFilepath() {
+    return this->filepath;
 }
 
 void mugg::graphics::Texture::SetWidth(int width) {
@@ -49,13 +126,6 @@ void mugg::graphics::Texture::SetColorsUsed(int colorsUsed) {
 }
 int mugg::graphics::Texture::GetColorsUsed() {
     return this->colorsUsed;
-}
-
-void mugg::graphics::Texture::SetFilepath(std::string filepath) {
-    this->filepath = filepath;
-}
-std::string mugg::graphics::Texture::GetFilepath() {
-    return this->filepath;
 }
 
 void mugg::graphics::Texture::SetLoaded(bool loaded) {

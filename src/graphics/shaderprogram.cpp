@@ -1,17 +1,12 @@
 #include "graphics/shaderprogram.hpp"
 
-mugg::graphics::ShaderProgram::ShaderProgram(bool createID = true) : GLObject(nullptr) {
+mugg::graphics::ShaderProgram::ShaderProgram(bool createID = true) : GLObject() {
     this->linked = false;
     this->compiledSuccessfully = false;
 
     if(createID)
         this->CreateID();
 }
-mugg::graphics::ShaderProgram::ShaderProgram(mugg::core::ContentManager* creator) : GLObject(creator) {
-    this->linked = false;
-    this->compiledSuccessfully = false;
-}
-
 mugg::graphics::ShaderProgram::~ShaderProgram() {
 }
 
